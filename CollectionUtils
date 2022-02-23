@@ -1,0 +1,23 @@
+           
+           List<Menu> menus= new ArrayList<>();
+           //将对象中supplyDayId属性提取为set
+           Set<Long> result = menus.stream().map(Menu->Menu.getSupplyDayId()).collect(Collectors.toSet());
+            List<List<Menu>> list = new ArrayList<>();
+            for (Long dayId : result) {
+                List<Menu> arrayList = new ArrayList<>();
+           //将满足条件的对象提取到新的list里
+                arrayList = (List<Menu>) CollectionUtils.select(menus,
+                        arg0 -> {
+                            Menu menu1 = null;
+                            if (arg0 instanceof Menu) {
+                                menu1 = (Menu) arg0;
+                            }
+                            if (menu1.getSupplyDayId()==dayId){
+                                return true;
+                            }
+                            return false;
+                        });
+                if (arrayList.size()>0){
+                    list.add(arrayList);
+                }
+            }
