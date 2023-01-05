@@ -1,3 +1,19 @@
+           //提取符合条件的对象
+           List<SysDictData> filterParentId = data.stream().filter(item -> parentId.equals(item.getParentId())).collect(Collectors.toList());
+           
+           //将list对象转为另一个list对象
+           List<SysAreaExportFloor> floorList=new ArrayList<>();
+           positionList.removeAll(Collections.singletonList(null));//去除list中所有空对象
+           List<SysArea> list = floorList.stream().map(SysArea::new).collect(Collectors.toList());
+
+           //list排序重组
+           list.sort(new Comparator<MonitorVo>() {
+                @Override
+                public int compare(MonitorVo o1, MonitorVo o2) {
+                    return (int) (o1.getDeviceId() - o2.getDeviceId());
+                }
+            });
+
            
            List<Menu> menus= new ArrayList<>();
            //将对象中supplyDayId属性提取为set
@@ -21,3 +37,6 @@
                     list.add(arrayList);
                 }
             }
+
+
+
